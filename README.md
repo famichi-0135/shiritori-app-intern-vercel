@@ -1,37 +1,40 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# インターン選考課題　しりとりアプリ
 
-## Getting Started
+## 実装した機能、デザイン
 
-First, run the development server:
+### 必須要件
+1. 直前の単語を、表示できるようにする
+2. 任意の単語を、入力できるようにする
+3. 直前の単語の末尾と、入力した単語の先頭を比較して、同じ場合だけ単語を更新する。違う場合は、エラーを表示する
+4. 末尾が「ん」で終わる単語が入力されたら、ゲームを終了する
+5. 過去に使用した単語が入力されたら、ゲームを終了する
+6. ゲーム中や終了後に、最初からやり直せるリセット機能をつける
+   
+### 独自要件
+1. 最初の単語がランダム
+...追加予定
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### デザイン
+1. TailwindCSSとShadcnUIを用いて統一感のあるデザイン
+   
+## アプリの動作確認の方法
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+[デプロイ先URL](https://lively-fire-aef2.tomop0513-maey.workers.dev/)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 動作手順
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+後に追記
 
-## Learn More
+## 参考にしたWebサイト
+1. Cloudflare Document
+2. Next.js Document
+3. [JavaScript で配列の最後の要素を取得するもう一つの方法](https://qiita.com/kerupani129/items/64ce1e80eb8efb4c2b21)
+4. [[React] Formの取り扱いについて理解する！](https://qiita.com/PenPe/items/a829efc4de14af7af3e1)
+   
 
-To learn more about Next.js, take a look at the following resources:
+## AIを使用した部分
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+#### 1. しりとりのロジックのリファクタリング
+  - AIにコードを読んでもらって可読性が高いか判断、修正案の提案など
+  - 
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# shiritoriApp-intern
