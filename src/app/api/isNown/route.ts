@@ -2,6 +2,7 @@
 import kuromoji from "kuromoji";
 import path from "path";
 import { NextRequest, NextResponse } from "next/server";
+// import { hTok } from "@/lib/hiraganaToKatakana";
 
 export async function POST(req: NextRequest) {
   const dicPath = path.join(process.cwd(), "node_modules/kuromoji/dict");

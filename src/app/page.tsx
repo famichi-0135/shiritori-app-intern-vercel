@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { randomWord } from "@/lib/randamNewWord";
 import { fetchIsNown } from "@/lib/fetchIsnown";
 import { token } from "@/types/type";
+import { hTok } from "@/lib/hiraganaToKatakana";
 // import { fetchTokens } from "@/lib/fetchIsnown";
 
 // ルール違反の種類を表す enum
@@ -17,6 +18,7 @@ enum RuleViolation {
 
 export default function Home() {
   const [words, setWords] = useState<string[]>([]);
+  const [kwords, setKwords] = useState<string[]>([]);
 
   useEffect(() => {
     resetGame();
@@ -24,7 +26,9 @@ export default function Home() {
 
   //ゲームのリセット
   const resetGame = () => {
-    setWords([randomWord() || "しりとり"]);
+    const randamword = randomWord();
+    setWords([randamword || "しりとり"]);
+    setKwords([hTok(randamword || "しりとり")]);
   };
 
   //文字列が入力されているか、未入力ではないか
@@ -40,8 +44,10 @@ export default function Home() {
     previous: string,
     current: string
   ): RuleViolation => {
+    // console.log(previous.at(-1));
+    // console.log(current[0]);
     if (previous.at(-1) !== current[0]) return RuleViolation.NotConnected;
-    if (current.at(-1) === "ん") return RuleViolation.EndsWithN;
+    if (current.at(-1) === "ン") return RuleViolation.EndsWithN;
     return RuleViolation.None;
   };
 
@@ -60,27 +66,13 @@ export default function Home() {
         return;
       }
 
-      if (isDuplicate(input)) {
-        alert("過去に使用した単語です。\nあなたの負け");
-        resetGame();
-        return;
-      }
-
-      const prevWord = words.at(-1) || "";
-      const violation = checkShiritoriRules(prevWord, input);
-
-      if (violation === RuleViolation.NotConnected) {
-        alert("しりとりの条件を満たしていません。\nやり直してください");
-        return;
-      } else if (violation === RuleViolation.EndsWithN) {
-        alert("最後の文字が「ん」です。\nあなたの負け");
-        resetGame();
-        return;
-      }
-
       const isNounResponse = await fetchIsNown(input);
       const isNoun: token = await isNounResponse.json();
-      console.log(isNoun);
+      if (!isNoun[isNoun.length - 1].reading) {
+        alert("品詞を認識できません。\nほかの言葉を入力してください。");
+        return;
+      }
+      // console.log(isNoun);
       let cnt = 0;
       isNoun.map((token) => {
         if (token.pos === "名詞") {
@@ -92,7 +84,42 @@ export default function Home() {
         return;
       }
 
+      if (isDuplicate(input)) {
+        alert("過去に使用した単語です。\nあなたの負け");
+        resetGame();
+        return;
+      }
+
+      const prevWord = kwords.at(-1) || "";
+      const violation = checkShiritoriRules(hTok(prevWord), isNoun[0].reading);
+
+      if (violation === RuleViolation.NotConnected) {
+        alert("しりとりの条件を満たしていません。\nやり直してください");
+        return;
+      } else if (violation === RuleViolation.EndsWithN) {
+        alert("最後の文字が「ん」です。\nあなたの負け");
+        resetGame();
+        return;
+      }
+
+      // const isNounResponse = await fetchIsNown(input);
+      // const isNoun: token = await isNounResponse.json();
+      // console.log(isNoun);
+      // let cnt = 0;
+      // isNoun.map((token) => {
+      //   if (token.pos === "名詞") {
+      //     cnt++;
+      //   }
+      // });
+      // if (cnt < 1) {
+      //   alert("入力された文字列は名詞ではありません。\nやり直してください");
+      //   return;
+      // }
+
       setWords([...words, input]);
+      setKwords([...kwords, isNoun[isNoun.length - 1].reading]);
+      console.log(words);
+      console.log(kwords);
     }
 
     if (action === "reset") {
@@ -140,7 +167,7 @@ export default function Home() {
           <div className="text-gray-500 mb-2">履歴</div>
           {words.slice(1).map((word, idx) => (
             <p key={word} className="text-sm">
-              {idx + 1}. {word}
+              {idx + 1}. {word}（{kwords[idx + 1]}）
             </p>
           ))}
         </div>

@@ -2,7 +2,6 @@ export function randomWord() {
   const randomWords = [
     "りんご",
     "じぐ",
-    "いんたーん",
     "しばいぬ",
     "ちわわ",
     "ちいかわ",
