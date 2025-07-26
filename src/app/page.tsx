@@ -4,6 +4,9 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { randomWord } from "@/lib/randamNewWord";
+import { fetchIsNown } from "@/lib/fetchIsnown";
+import { token } from "@/types/type";
+// import { fetchTokens } from "@/lib/fetchIsnown";
 
 // ルール違反の種類を表す enum
 enum RuleViolation {
@@ -47,7 +50,7 @@ export default function Home() {
     return words.includes(word);
   };
 
-  const handleClick = (formData: FormData) => {
+  const handleClick = async (formData: FormData) => {
     const action = formData.get("action");
     const input = validateInput(formData.get("shiritori"));
 
@@ -72,6 +75,20 @@ export default function Home() {
       } else if (violation === RuleViolation.EndsWithN) {
         alert("最後の文字が「ん」です。\nあなたの負け");
         resetGame();
+        return;
+      }
+
+      const isNounResponse = await fetchIsNown(input);
+      const isNoun: token = await isNounResponse.json();
+      console.log(isNoun);
+      let cnt = 0;
+      isNoun.map((token) => {
+        if (token.pos === "名詞") {
+          cnt++;
+        }
+      });
+      if (cnt < 1) {
+        alert("入力された文字列は名詞ではありません。\nやり直してください");
         return;
       }
 
