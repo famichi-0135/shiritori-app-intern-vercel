@@ -5,12 +5,9 @@ import { NextRequest, NextResponse } from "next/server";
 // import { hTok } from "@/lib/hiraganaToKatakana";
 
 export async function POST(req: NextRequest) {
-  const dicPath = path.join(process.cwd(), "node_modules/kuromoji/dict");
-
-  // Wrap the tokenizer build and usage in a Promise
   const tokens = await new Promise<kuromoji.IpadicFeatures[]>(
     (resolve, reject) => {
-      kuromoji.builder({ dicPath }).build(async (err, tokenizer) => {
+      kuromoji.builder({ dicPath: "/dict" }).build(async (err, tokenizer) => {
         if (err || !tokenizer) {
           reject(new Error("Tokenizer build failed"));
           return;
