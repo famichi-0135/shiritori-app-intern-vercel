@@ -5,18 +5,18 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   const tokens = await new Promise<kuromoji.IpadicFeatures[]>(
-    (resolve, reject) => {
-      kuromoji.builder({ dicPath: "/dict" }).build(async (err, tokenizer) => {
+    async (resolve, reject) => {
+      kuromoji.builder({ dicPath: "public/dict" }).build(async (err, tokenizer) => {
         if (err || !tokenizer) {
           reject(new Error("Tokenizer build failed"));
           return;
         }
-
         const body = (await req.json()) as { text: string };
         const { text } = body;
         console.log(text);
-        const tokens = tokenizer.tokenize(text);
-        resolve(tokens);
+        const result = tokenizer.tokenize(text);
+        console.log(result);
+        resolve(result);
       });
     }
   );
