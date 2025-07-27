@@ -1,3 +1,5 @@
+// import { NextRequest, NextResponse } from "next/server";
+
 export async function fetchIsNown(word: string) {
   const res = await fetch("/api/isNown", {
     method: "POST",
@@ -6,9 +8,6 @@ export async function fetchIsNown(word: string) {
     }),
     headers: { "Content-Type": "application/json" },
   });
-
-  // const tokens = await res.json();
-  // for (let i = 0; i < tokens.length; i++)
 
   return res;
 }
