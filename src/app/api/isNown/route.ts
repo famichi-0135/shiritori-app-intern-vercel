@@ -1,6 +1,5 @@
 // import type { NextApiRequest, NextApiResponse } from "next";
 import kuromoji from "kuromoji";
-import path from "path";
 import { NextRequest, NextResponse } from "next/server";
 // import { hTok } from "@/lib/hiraganaToKatakana";
 
