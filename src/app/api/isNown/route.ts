@@ -25,16 +25,7 @@ export async function POST(req: NextRequest) {
     }
   );
 
-  console.log(tokens);
-  // let cnt = 0;
-  // tokens.map((token) => {
-  //   if (token.pos === "名詞") {
-  //     cnt++;
-  //   }
-  // });
-  // if (cnt > tokens.length - 3) {
-    
-  // }
+  // console.log(tokens);
 
   return NextResponse.json(tokens, { status: 200 });
 }
