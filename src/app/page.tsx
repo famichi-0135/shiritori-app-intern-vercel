@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { randomWord } from "@/lib/randamNewWord";
 import { fetchIsNown } from "@/lib/fetchIsnown";
-import { token } from "@/types/type";
+// import { token } from "@/types/type";
 import { hTok } from "@/lib/hiraganaToKatakana";
 import { sToB } from "@/lib/smallToBig";
 // import { fetchTokens } from "@/lib/fetchIsnown";
@@ -31,8 +31,8 @@ export default function Home() {
     if (!randamword) {
       randamword = "しりとり";
     }
-    const isNounResponse = await fetchIsNown(randamword);
-    const isNoun: token = await isNounResponse.json();
+    const isNoun = await fetchIsNown(randamword);
+    // const isNoun: token = await isNounResponse.json();
     // const isNoun = await POST(randamword);
     console.log(isNoun);
     setWords([randamword]);
@@ -78,8 +78,8 @@ export default function Home() {
         return;
       }
 
-      const isNounResponse = await fetchIsNown(input);
-      const isNoun: token = await isNounResponse.json();
+      const isNoun = await fetchIsNown(input);
+      // const isNoun: token = await isNounResponse.json();
       if (!isNoun[isNoun.length - 1].reading) {
         alert("品詞を認識できません。\nほかの言葉を入力してください。");
         return;
@@ -103,7 +103,7 @@ export default function Home() {
       }
 
       const prevWord = kwords.at(-1) || "";
-      const violation = checkShiritoriRules(hTok(prevWord), isNoun[0].reading);
+      const violation = checkShiritoriRules(hTok(prevWord), isNoun[0].reading || isNoun[0].surface_form || "");
 
       if (violation === RuleViolation.NotConnected) {
         alert("しりとりの条件を満たしていません。\nやり直してください");
