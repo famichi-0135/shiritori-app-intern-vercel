@@ -8,6 +8,7 @@ import { fetchIsNown } from "@/lib/fetchIsnown";
 // import { token } from "@/types/type";
 import { hTok } from "@/lib/hiraganaToKatakana";
 import { sToB } from "@/lib/smallToBig";
+import { token } from "@/types/type";
 // import { fetchTokens } from "@/lib/fetchIsnown";
 
 // ルール違反の種類を表す enum
@@ -31,9 +32,9 @@ export default function Home() {
     if (!randamword) {
       randamword = "しりとり";
     }
-    const isNoun = await fetchIsNown(randamword);
-    // const isNoun: token = await isNounResponse.json();
-    // const isNoun = await POST(randamword);
+    const isNounResponse = await fetchIsNown(randamword);
+    const isNoun: token = await isNounResponse.json();
+
     console.log(isNoun);
     setWords([randamword]);
     setKwords([
@@ -78,8 +79,8 @@ export default function Home() {
         return;
       }
 
-      const isNoun = await fetchIsNown(input);
-      // const isNoun: token = await isNounResponse.json();
+      const isNounResponse = await fetchIsNown(input);
+      const isNoun: token = await isNounResponse.json();
       if (!isNoun[isNoun.length - 1].reading) {
         alert("品詞を認識できません。\nほかの言葉を入力してください。");
         return;
@@ -103,7 +104,10 @@ export default function Home() {
       }
 
       const prevWord = kwords.at(-1) || "";
-      const violation = checkShiritoriRules(hTok(prevWord), isNoun[0].reading || isNoun[0].surface_form || "");
+      const violation = checkShiritoriRules(
+        hTok(prevWord),
+        isNoun[0].reading || isNoun[0].surface_form || ""
+      );
 
       if (violation === RuleViolation.NotConnected) {
         alert("しりとりの条件を満たしていません。\nやり直してください");
@@ -283,3 +287,5 @@ export default function Home() {
 
 //   return tokens;
 // }
+
+// import { NextResponse } from "next/server";
