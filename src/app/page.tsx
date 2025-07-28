@@ -33,6 +33,7 @@ export default function Home() {
     }
     const isNounResponse = await fetchIsNown(randamword);
     const isNoun: token = await isNounResponse.json();
+    // const isNoun = await POST(randamword);
     console.log(isNoun);
     setWords([randamword]);
     setKwords([
@@ -240,3 +241,45 @@ export default function Home() {
     </div>
   );
 }
+
+// import kuromoji from "kuromoji";
+// // import { NextRequest, NextResponse } from "next/server";
+// import path from "path";
+
+// export async function POST(req: string) {
+//   // const dicPath = path.join(process.cwd(), "public/dict");
+//   //   const tokens = await new Promise<kuromoji.IpadicFeatures[]>(
+//   //     async (resolve, reject) => {
+//   //       kuromoji.builder({ dicPath: "/dict" }).build((err, tokenizer) => {
+//   //   if(err){
+//   //     console.log(err)
+//   //   } else {
+//   //     const tokens = tokenizer.tokenize(text)
+//   //   }
+//   // })
+//   //         // const text = req;
+//   //         // // const { text } = body;
+//   //         // console.log(text);
+//   //         // const result = tokenizer.tokenize(text);
+//   //         // console.log(result);
+//   //       // resolve(result);
+//   //       resolve(tokens);
+//   //       });
+//   //   //   }
+//   //   // );
+//   const tokens = await kuromoji
+//     .builder({ dicPath: "/dict" })
+//     .build((err, tokenizer) => {
+//       if (err) {
+//         console.log(err);
+//       } else {
+//         const tokens = tokenizer.tokenize(req);
+//         console.log(tokens);
+//         return tokens;
+//       }
+//     });
+
+//   console.log(tokens);
+
+//   return tokens;
+// }
