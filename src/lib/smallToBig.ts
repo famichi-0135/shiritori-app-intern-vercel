@@ -77,7 +77,7 @@ export function sToB(word: string): string {
   }
   let lastchar;
   if (word.at(-1) === "ー") {
-    lastchar = word.at(word.length -  2);
+    lastchar = word.at(word.length - 2);
   } else {
     lastchar = word.at(-1);
   }

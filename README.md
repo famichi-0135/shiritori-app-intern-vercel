@@ -39,7 +39,8 @@
 2. Next.js Document
 3. [JavaScript で配列の最後の要素を取得するもう一つの方法](https://qiita.com/kerupani129/items/64ce1e80eb8efb4c2b21)
 4. [[React] Formの取り扱いについて理解する！](https://qiita.com/PenPe/items/a829efc4de14af7af3e1)
-   
+5. [Next.js14でプレイリストアプリ作ってみた話](https://qiita.com/Kagari-hello-world/items/0ed5106d6e693e2037dd)
+   1. この記事でVercel環境だと辞書ファイルが読み込まれずに
 
 ## AIを使用した部分
 
@@ -48,3 +49,5 @@
 #### 2. kuromoji.jsを利用するAPIの作成の補助
   - 型制御、エラーハンドリングの実装について助けてもらった。
 
+#### 3. kuromoji.jsをVercelの環境で動かす手段の模索。
+  - node_module内に辞書ファイルを置くと
