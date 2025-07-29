@@ -1,12 +1,12 @@
 // import { NextResponse } from "next/server";
 // import kuromoji from "kuromoji";
 export async function fetchIsNown(word: string) {
-  const res = await fetch("https://kuromoji-api-liard.vercel.app/tokenize", {
+  const res = await fetch("api/isNown", {
     method: "POST",
-    body: JSON.stringify({
-      text: word,
-    }),
-    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ text: word }),
+    headers: {
+      "Content-Type": "application/json",
+    },
   });
 
   // const text = "親譲りの無鉄砲で小供の時から損ばかりしている";
